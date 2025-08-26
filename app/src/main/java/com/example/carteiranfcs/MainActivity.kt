@@ -165,3 +165,85 @@ fun CarteiraScreen2() {
     }
 }
 
+@Composable
+fun BotaoOpcao(backgroundColor: Color, iconRes: Int, texto: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(90.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(backgroundColor)
+            .border(1.dp, Color(0xFFDDDDDD), RoundedCornerShape(12.dp))
+            .padding(horizontal = 16.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = iconRes),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(text = texto, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+        }
+    }
+}
+
+@Composable
+fun TextosCartao() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text(
+            text = "prepaid",
+            color = Color.White,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Text(
+            text = "M. Molina",
+            color = Color.White,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium
+        )
+    }
+}
+
+@Composable
+fun AvatarBadge(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(70.dp)
+            .clip(CircleShape)
+            .background(Color(0xFFECECEC))
+            .border(1.dp, Color(0xFFDDDDDD), CircleShape),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_perfil),
+            contentDescription = "PERFIL",
+            modifier = Modifier.size(60.dp),
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun Tela_de_Incial() {
+    CarteiraNFCsTheme {
+        CarteiraScreen(navController = rememberNavController())
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun Gestao_de_cartoes() {
+    CarteiraNFCsTheme {
+        CarteiraScreen2()
+    }
+}
