@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
                         startDestination = "carteira"
                     ) {
                         composable("carteira") { CarteiraScreen(navController) }
-                        composable("wallet2") { CarteiraScreen2() }
+                        composable("wallet2") { CarteiraScreen2(navController) }
                     }
                 }
             }
@@ -73,11 +74,15 @@ fun CarteiraScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Cartão com clique para navegar
             Box(
                 modifier = Modifier
                     .size(width = 300.dp, height = 180.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .background(Color(0xFF9C295B))
+                    .clickable {
+                        navController.navigate("wallet2")
+                    }
             ) {
                 TextosCartao()
             }
@@ -100,7 +105,7 @@ fun CarteiraScreen(navController: NavController) {
 }
 
 @Composable
-fun CarteiraScreen2() {
+fun CarteiraScreen2(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -121,12 +126,16 @@ fun CarteiraScreen2() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Cartão clicável para voltar à primeira tela
         Box(
             modifier = Modifier
                 .height(200.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color.LightGray),
+                .background(Color.LightGray)
+                .clickable {
+                    navController.navigate("carteira")
+                },
             contentAlignment = Alignment.Center
         ) {
             Image(
@@ -244,6 +253,6 @@ fun Tela_de_Incial() {
 @Composable
 fun Gestao_de_cartoes() {
     CarteiraNFCsTheme {
-        CarteiraScreen2()
+        CarteiraScreen2(navController = rememberNavController())
     }
 }
